@@ -33,7 +33,7 @@ url_theme2 = dbc.themes.VAPOR
 
 # ===== Reading n cleaning File ====== #
 # Quando for gravar a aula, explicar todas as alterações no Jupyter lab e depois só colar pra cá.
-df_main = pd.read_csv("data_gas.csv")
+df_main = pd.read_csv("GasPrice/data_gas.csv")
 
 # memory usage tests
 #df_main.info()
