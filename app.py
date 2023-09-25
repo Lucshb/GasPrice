@@ -4,24 +4,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
-from http.server import HTTPServer, BaseHTTPRequestHandler
-import ngrok
 
-
-ngrok.connect(authtoken="2TGthH9FnRc7zOWDyWbZ8XouaAV_2MpP6SPVpPNhim6roHWjz")
-
-class HelloHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        body = bytes("Hello", "utf-8")
-        self.protocol_version = "HTTP/1.1"
-        self.send_response(200)
-        self.send_header("Content-Length", len(body))
-        self.end_headers()
-        self.wfile.write(body)
-
-server = HTTPServer(("localhost", 8080), HelloHandler)              
-tunnel = ngrok.connect(8080, authtoken_from_env=True)
-print (f"Ingress established at {tunnel.url()}")
 
 
 # import from folders/theme changer
@@ -32,6 +15,8 @@ from dash_bootstrap_templates import ThemeSwitchAIO
 FONT_AWESOME = ["https://use.fontawesome.com/releases/v5.10.2/css/all.css"]
 
 app = dash.Dash(__name__, external_stylesheets=FONT_AWESOME)
+
+server = app.server
 
 # ========== Styles ============ #
 tab_card = {'height': '100%'}
@@ -527,7 +512,7 @@ def range_slider(range, data):
 # Run server
 if __name__ == '__main__':
     #app.run_server(debug=False)
-    app.run(debug=False, port=8000, host='0.0.0.0')
+    app.run(debug=False)
     
 
 #run_with_ngrok(app)
