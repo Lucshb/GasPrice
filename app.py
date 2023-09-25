@@ -93,7 +93,7 @@ app.layout = dbc.Container(children=[
                 dbc.CardBody([
                     dbc.Row([
                         dbc.Col([  
-                            html.Legend("Análise dos Preços de Gasolina")
+                            html.Legend("Gas Prices Analysis")
                         ], sm=8),
                         dbc.Col([        
                             html.I(className='fa fa-filter', style={'font-size': '300%'})
@@ -102,11 +102,11 @@ app.layout = dbc.Container(children=[
                     dbc.Row([
                         dbc.Col([
                             ThemeSwitchAIO(aio_id="theme", themes=[url_theme1, url_theme2]),
-                            html.Legend("Lucas Barros Analitycs")
+                            html.Legend("Asimov Academy")
                         ])
                     ], style={'margin-top': '10px'}),
                     dbc.Row([
-                        dbc.Button("Visite meu CV", href="https://curriculolucashbarros.streamlit.app", target="_blank")
+                        dbc.Button("Visite o Site", href="https://asimov.academy/", target="_blank")
                     ], style={'margin-top': '10px'})
                 ])
             ], style=tab_card)
@@ -241,10 +241,6 @@ app.layout = dbc.Container(children=[
         dbc.Col([
             dbc.Card([                
                 dbc.Row([
-                    dbc.Col([
-                        html.H5('Começar análise:', style={'justify-content': 'left', 'margin-top': '10px'}),
-                        html.H6('Atualiza a cada 10 segundos', style={'justify-content': 'left', 'margin-top': '8px'}),
-                    ], style={'justify-content': 'left', 'margin-top': '10px'}),
                     dbc.Col([
                         dbc.Button([html.I(className='fa fa-play')], id="play-button", style={'margin-right': '15px'}),  
                         dbc.Button([html.I(className='fa fa-stop')], id="stop-button")
