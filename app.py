@@ -512,7 +512,7 @@ def range_slider(range, data):
 # Run server
 if __name__ == '__main__':
     #app.run_server(debug=False)
-    app.run(debug=False)
+    app.run_server(debug=False)
     
 
 #run_with_ngrok(app)
