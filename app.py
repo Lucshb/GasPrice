@@ -93,7 +93,7 @@ app.layout = dbc.Container(children=[
                 dbc.CardBody([
                     dbc.Row([
                         dbc.Col([  
-                            html.Legend("Gas Prices Analysis")
+                            html.Legend("Análise dos Preços de Gasolina")
                         ], sm=8),
                         dbc.Col([        
                             html.I(className='fa fa-filter', style={'font-size': '300%'})
@@ -102,11 +102,11 @@ app.layout = dbc.Container(children=[
                     dbc.Row([
                         dbc.Col([
                             ThemeSwitchAIO(aio_id="theme", themes=[url_theme1, url_theme2]),
-                            html.Legend("Asimov Academy")
+                            html.Legend("Lucas Barros Analitycs")
                         ])
                     ], style={'margin-top': '10px'}),
                     dbc.Row([
-                        dbc.Button("Visite o Site", href="https://asimov.academy/", target="_blank")
+                        dbc.Button("Visite meu CV", href="https://curriculolucashbarros.streamlit.app", target="_blank")
                     ], style={'margin-top': '10px'})
                 ])
             ], style=tab_card)
@@ -242,6 +242,10 @@ app.layout = dbc.Container(children=[
             dbc.Card([                
                 dbc.Row([
                     dbc.Col([
+                        html.H5('Começar análise:', style={'justify-content': 'left', 'margin-top': '10px'}),
+                        html.H6('Atualiza a cada 10 segundos', style={'justify-content': 'left', 'margin-top': '8px'}),
+                    ], style={'justify-content': 'left', 'margin-top': '10px'}),
+                    dbc.Col([
                         dbc.Button([html.I(className='fa fa-play')], id="play-button", style={'margin-right': '15px'}),  
                         dbc.Button([html.I(className='fa fa-stop')], id="stop-button")
                     ], sm=12, md=1, style={'justify-content': 'center', 'margin-top': '10px'}),
@@ -267,6 +271,7 @@ app.layout = dbc.Container(children=[
     ], className='main_row g-2 my-auto')
 
 ], fluid=True, style={'height': '100%'})
+
 
 
 # ======== Callbacks ========== #
@@ -506,34 +511,38 @@ def range_slider(range, data):
 
 # Animation rangeslider
 @app.callback(
-    Output('rangeslider', 'value'),
-    Output('controller', 'data'), 
+    Output(‘rangeslider’, ‘value’),
+    Output(‘controller’, ‘data’),
+    Output(‘interval’,’disabled’),
 
-    Input('interval', 'n_intervals'),
-    Input('play-button', 'n_clicks'),
-    Input('stop-button', 'n_clicks'),
+    Input(‘interval’, ‘n_intervals’),
+    Input(“play-button”, ‘n_clicks’),
+    Input(‘stop-button’, ‘n_clicks’),
 
-    State('rangeslider', 'value'), 
-    State('controller', 'data'), 
+    State(‘rangeslider’, ‘value’),
+    State(‘controller’, ‘data’),
     prevent_initial_callbacks = True)
 def controller(n_intervals, play, stop, rangeslider, controller):
-    trigg = dash.callback_context.triggered[0]["prop_id"]
+    trigg = dash.callback_context.triggered[0][“prop_id”]
+    disable = False
 
-    if ('play-button' in trigg and not controller["play"]):
-        if not controller["play"]:
-            controller["play"] = True
+    if (‘play-button’ in trigg and not controller[“play”]):
+        if not controller[“play”]:
+            controller[“play”] = True
             rangeslider[1] = 2007
         
-    elif 'stop-button' in trigg:
-        if controller["play"]:
-            controller["play"] = False
+    elif ‘stop-button’ in trigg:
+        if controller[“play”]:
+            controller[“play”] = False
+            disable = True
 
-    if controller["play"]:
+    if controller[“play”]:
         if rangeslider[1] == 2021:
-            controller['play'] = False
+            controller[‘play’] = False
+            disable = True
         rangeslider[1] += 1 if rangeslider[1] < 2021 else 0
     
-    return rangeslider, controller
+    return rangeslider, controller, disable
 
 
 # Run server
