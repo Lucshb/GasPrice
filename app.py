@@ -511,34 +511,35 @@ def range_slider(range, data):
 
 # Animation rangeslider
 @app.callback(
-    Output(‘rangeslider’, ‘value’),
-    Output(‘controller’, ‘data’),
+    Output('rangeslider', 'value'),
+    Output('controller', 'data'), 
     Output(‘interval’,’disabled’),
 
-    Input(‘interval’, ‘n_intervals’),
-    Input(“play-button”, ‘n_clicks’),
-    Input(‘stop-button’, ‘n_clicks’),
+    Input('interval', 'n_intervals'),
+    Input('play-button', 'n_clicks'),
+    Input('stop-button', 'n_clicks'),
 
-    State(‘rangeslider’, ‘value’),
-    State(‘controller’, ‘data’),
+    State('rangeslider', 'value'), 
+    State('controller', 'data'), 
     prevent_initial_callbacks = True)
-def controller(n_intervals, play, stop, rangeslider, controller):
-    trigg = dash.callback_context.triggered[0][“prop_id”]
-    disable = False
 
-    if (‘play-button’ in trigg and not controller[“play”]):
-        if not controller[“play”]:
-            controller[“play”] = True
+def controller(n_intervals, play, stop, rangeslider, controller):
+    trigg = dash.callback_context.triggered[0]["prop_id"]
+    disable = True
+
+    if ('play-button' in trigg and not controller["play"]):
+        if not controller["play"]:
+            controller["play"] = True
             rangeslider[1] = 2007
         
-    elif ‘stop-button’ in trigg:
-        if controller[“play”]:
-            controller[“play”] = False
+    elif 'stop-button' in trigg:
+        if controller["play"]:
+            controller["play"] = False
             disable = True
 
-    if controller[“play”]:
+    if controller["play"]:
         if rangeslider[1] == 2021:
-            controller[‘play’] = False
+            controller['play'] = False
             disable = True
         rangeslider[1] += 1 if rangeslider[1] < 2021 else 0
     
