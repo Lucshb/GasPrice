@@ -513,7 +513,7 @@ def range_slider(range, data):
 @app.callback(
     Output('rangeslider', 'value'),
     Output('controller', 'data'), 
-    Output(‘interval’,’disabled’),
+    Output('interval', 'disabled'),
 
     Input('interval', 'n_intervals'),
     Input('play-button', 'n_clicks'),
